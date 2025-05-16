@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class StaticObjectPooling : PoolObject
 {
-    [SerializeField] private int poolSize = 10;
+    [SerializeField] private GameObject prefabPlatform;
+    [SerializeField] private int poolSize;
 
     private Queue<PoolObject> pool = new Queue<PoolObject>();
 
@@ -11,7 +12,7 @@ public class StaticObjectPooling : PoolObject
     {
         for (int i = 0; i < poolSize; i++)
         {
-            PoolObject obj = Instantiate(this, transform);
+            PoolObject obj = Instantiate(prefabPlatform, transform).GetComponent<PoolObject>();
             obj.OnDespawn(obj.gameObject);
             pool.Enqueue(obj);
         }
